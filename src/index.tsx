@@ -1,14 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { firebaseConfig } from './firebaseConfig';
+import { FirebaseAppProvider, AuthCheck } from 'reactfire';
+import { Home, PlayerInfo, SignIn } from './components';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import 'firebase/auth';
+import './main.css';
+
+
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
+            
+                <Router>
+                    <Switch>
+                        <Route exact path='/'>
+                            <Home></Home>
+                        </Route>
+                        <Route exact path='/Player_Info'>
+                            <PlayerInfo></PlayerInfo>
+                        </Route>
+                        <Route exact path='/signin'>
+                            <SignIn></SignIn>
+                        </Route>
+                    </Switch>
+                </Router>
+
+        </FirebaseAppProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
